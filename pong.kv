@@ -1,0 +1,67 @@
+# Mini-Project_1 Deliverable
+# Justin Conners, Reyna Dawkins
+# ISAT 280
+# February 24, 2015
+
+#:import Window kivy.core.window
+#:import Label kivy.uix.label
+#:import Button kivy.uix.button
+#:import BoxLayout kivy.uix.boxlayout
+#:import AnchorLayout kivy.uix.anchorlayout
+#:import FloatLayout kivy.uix.floatlayout
+
+BoxLayout:
+  orientation: "vertical"
+  background_color: (255, 255, 255, 1)
+
+  AnchorLayout:
+    anchor_x: "center"
+    anchor_y: "center"
+
+    Button:
+      text: "PONG"
+      background_color: (0, 0, 0, 1)
+      color: (255, 255, 255, 1)
+      size_hint: (0, 0)
+      size: (170, 85)
+      bold: True
+      font_size: 35
+      halign: "center"
+    
+  FloatLayout:
+    
+    Button:
+      text: "start"
+      background_color: (255, 255, 255, 1)
+      color: (0, 0, 0, 1)
+      pos_hint: {'center_x': 0.5}
+      pos: (0, 190)
+      size_hint: (0, 0)
+      size: (105, 10)
+      bold: True
+      font_size: 20
+      halign: "center"
+
+    Button:
+      text: "help"
+      background_color: (255, 255, 255, 1)
+      color: (0, 0, 0, 1)
+      size_hint: (0, 0)
+      size: (105, 10)
+      pos_hint: {'center_x': 0.5}
+      pos: (0, 165)
+      bold: True
+      font_size: 20
+      halign: "center"
+
+    Button:
+      text: "about"
+      background_color: (255, 255, 255, 1)
+      color: (0, 0, 0, 1)
+      size_hint: (0, 0)
+      size: (105, 10)
+      pos_hint: {'center_x': 0.5}
+      pos: (0, 140)
+      bold: True
+      font_size: 20
+      halign: "center"
