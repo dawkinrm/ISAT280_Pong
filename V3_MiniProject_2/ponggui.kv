@@ -1,0 +1,206 @@
+# Mini-Project_2 Deliverable
+# Justin Conners, Reyna Dawkins
+# ISAT 280
+# February 24, 2015
+
+#:import Window kivy.core.window
+#:import Label kivy.uix.label
+#:import Button kivy.uix.button
+#:import BoxLayout kivy.uix.boxlayout
+#:import AnchorLayout kivy.uix.anchorlayout
+#:import FloatLayout kivy.uix.floatlayout
+#:import Canvas kivy.graphics
+
+MyScreenManager:
+	MenuScreen:
+	AboutScreen:
+	HelpScreen:
+	ConfigScreen:
+	PongScreen:
+
+<PongScreen>:
+	name: 'pong'
+    AnchorLayout:
+        anchor_x: "right"
+        anchor_y: "top"
+        padding: 5
+
+        BackButton:
+            size: (52, 52)
+            background_color: (255, 255, 255, 1)            
+
+        BackButton:
+            name: exit
+            text: "EXIT"
+            background_border:
+            on_press:
+                root.manager.transition.direction = 'up'
+                root.manager.current = 'config'
+                app.w.clearcolor = (255, 255, 255, 1)
+                app.pong_game.stop_pong()
+
+<BackButton@Button>:
+	text: "BACK"
+	background_color: (0, 0, 0, 1)
+	color: (255, 255, 255, 1)
+	size_hint: (0, 0)
+	size: (50, 50)
+	bold: True
+	font_size: 12
+
+<CustomLabel@Label>:
+	color: (0,0,0, 1)
+	bold: True
+	font_size: 20
+	halign: "center"
+	text_size: self.width - 50, None
+	
+<ScreenTitleLabel@Label>:
+	color: (0,0,0, 1)
+	bold: True
+	font_size: 35
+	halign: "center"
+
+<ConfigScreen>
+	name: 'config'
+	AnchorLayout:
+	    anchor_x: "right"
+	    anchor_y: "top"
+		padding: 5
+		
+	    BackButton:
+			on_press: 
+				root.manager.transition.direction = 'up'
+				root.manager.current = 'menu'
+
+	BoxLayout:
+		FloatLayout:
+			ScreenTitleLabel:
+				text: "Game\nConfiguration"
+				pos_hint: {'center_x': 0.5}
+				pos: (0, 100)			
+			Button:
+                id: play
+				text: "Play Now"
+				background_color: (0, 0, 0, 1)
+				color: (255, 255, 255, 1)
+				bold: True
+				pos_hint: {'center_x': 0.5, 'center_y': .4}
+				size_hint: (0, 0)
+				size: (140, 85)
+				on_press: 
+					root.manager.transition.direction = 'down'
+					root.manager.current = 'pong'
+                    app.pong_game.run()
+	
+		
+<AboutScreen>:
+	name: 'about'
+	AnchorLayout:
+	    anchor_x: "right"
+	    anchor_y: "top"
+		padding: 5
+		
+	    BackButton:
+			on_press: 
+				root.manager.transition.direction = 'right'
+				root.manager.current = 'menu'
+		
+	BoxLayout:
+		FloatLayout:
+			ScreenTitleLabel:
+				text: "About"
+				pos_hint: {'center_x': 0.5}
+				pos: (0, 100)			
+			CustomLabel:
+				text: "here is some information about the game"
+				pos_hint: {'center_x': 0.5, 'center_y': .5}
+
+<HelpScreen>:
+	name: 'help'
+	AnchorLayout:
+	    anchor_x: "right"
+	    anchor_y: "top"
+		padding: 5
+		
+	    BackButton:
+	        on_press: 
+				root.manager.transition.direction = 'left'
+				root.manager.current = 'menu'
+	BoxLayout:
+		FloatLayout:
+			ScreenTitleLabel:
+				text: "Help"
+				pos_hint: {'center_x': 0.5}
+				pos: (0, 100)			
+			CustomLabel:
+				text: "here is some helpful information"
+				pos_hint: {'center_x': 0.5, 'center_y': .5}
+				pos: (0, 165)
+	
+<MenuScreen>:
+	name: 'menu'
+	BoxLayout:
+	    orientation: "vertical"
+	    background_color: (255, 255, 255, 1)
+
+	    AnchorLayout:
+		    anchor_x: "center"
+		    anchor_y: "center"
+
+			Button:
+				text: "PONG"
+				background_color: (0, 0, 0, 1)
+				color: (255, 255, 255, 1)
+				size_hint: (0, 0)
+				size: (170, 85)
+				bold: True
+				font_size: 35
+				halign: "center" 
+		
+	    FloatLayout:
+		
+		    Button:
+		        text: "start"
+		        background_color: (255, 255, 255, 1)
+		        color: (0, 0, 0, 1)
+		        pos_hint: {'center_x': 0.5}
+		        pos: (0, 190)
+		        size_hint: (0, 0)
+		        size: (105, 10)
+		        bold: True
+		        font_size: 20
+		        halign: "center"
+				on_press: 
+					root.manager.transition.direction = 'down'
+					root.manager.current = 'config'
+		  
+		    Button:
+		        text: "help"
+		        background_color: (255, 255, 255, 1)
+		        color: (0, 0, 0, 1)
+		        pos_hint: {'center_x': 0.5}
+		        pos: (0, 165)
+		        size_hint: (0, 0)
+		        size: (105, 10)
+		        bold: True
+		        font_size: 20
+		        halign: "center"
+                on_press: 
+					root.manager.transition.direction = 'right'
+					root.manager.current = 'help'
+		  
+		    Button:
+		        text: "about"
+		        background_color: (255, 255, 255, 1)
+		        color: (0, 0, 0, 1)
+		        pos_hint: {'center_x': 0.5}
+		        pos: (0, 140)
+		        size_hint: (0, 0)
+		        size: (105, 10)
+		        bold: True
+		        font_size: 20
+		        halign: "center"
+		        on_press:
+					root.manager.transition.direction = 'left'
+					root.manager.current = 'about'
