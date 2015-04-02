@@ -50,7 +50,6 @@ MyScreenManager:
         BackButton:
             size: (52, 52)
             background_color: (255, 255, 255, 1)            
-        
         BackButton:
             text: "MENU"
             background_border:

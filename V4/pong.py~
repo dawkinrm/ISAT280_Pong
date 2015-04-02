@@ -85,13 +85,14 @@ class PongApp(App):
             self.pause()
             self.menu.visible = True
             self.root.add_widget(self.menu)
+            return self.menu
 
     def close_menu(self):
         if self.menu.visible:
             self.menu.visible = False
             self.root.remove_widget(self.menu)
             self.resume()
-
+            return self.menu
 
 class MenuWidget(Widget):
     visible = False

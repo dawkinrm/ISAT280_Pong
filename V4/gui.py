@@ -29,39 +29,16 @@ class HelpScreen(Screen):
   pass
 
 class PongScreen(Screen):
-    Window.clearcolor = (1, 1, 1, 1)
+  Window.clearcolor = (255, 255, 255, 1)
   
 class ConfigScreen(Screen):
   pass  
 
 class BackButton(Button):
   pass	
-  
+
 class MyScreenManager(ScreenManager):
   pass
-
-class Cmenu(Bubble):
-
-    def menu_selected(self, *l):
-        if l[0].text == 'hows':
-            # move to sub menu
-            Animation(scroll_x = 1, d=.5 ).start(l[0].parent.parent.parent)
-            #l[0].parent.parent.parent change this and everything relative to something non-relative if you want-to make the menu more extensible
-        elif l[0].text == '<':
-            # move back to root menu
-            Animation(scroll_x = 0, d=.5 ).start(l[0].parent.parent.parent)
-        else:
-            #fade out animation
-            (r, g, b, a) = self.parent.context_menu.background_color
-
-            def on_anim_complete(*l):
-                self.parent.context_menu.background_color = (r, g, b, a)
-                self.parent.remove_widget(self.parent.context_menu)
-
-            anim = Animation(background_color = (0, 0, 0, 0), d=.1 )
-            anim.start(self.parent.context_menu)
-            anim.bind(on_complete = on_anim_complete)
-            print l[0].text + ' selected'
 
 class PongGUIApp(App):
   Window.size = (325, 455)

@@ -13,7 +13,7 @@
         pos: self.pos
         bold: True
         on_press:
-            app.pong_game.close_menu()
+            app.pong_app.close_menu()
         #AnchorLayout:
             #anchor_x: "center"
             #anchor_y: "center"
