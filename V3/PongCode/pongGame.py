@@ -1,5 +1,4 @@
 from kivy.app import App
-from kivy.core.window import Window
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty, ReferenceListProperty,\
     ObjectProperty
@@ -63,23 +62,13 @@ class PongGame(Widget):
             self.player2.center_y = touch.y
 
 
-class PongApp(App):
+class PongGameApp(App):
     def build(self):
-        Window.clearcolor = (0, 0, 0, 1)
-        self.game = PongGame()
-        self.game.serve_ball()
-        Clock.schedule_interval(self.game.update, 1.0 / 60.0)
-        return self.game
-    
-    def on_stop(self):
-        self.stop()
-    
-    def pause(self):
-        Clock.unschedule(self.game.update)
+        game = PongGame()
+        game.serve_ball()
+        Clock.schedule_interval(game.update, 1.0 / 60.0)
+        return game
 
-    def resume(self):
-        Clock.schedule_interval(self.game.update, 1.0 / 60.0)
-        
 
 if __name__ == '__main__':
-    PongApp().run()
+    PongGameApp().run()

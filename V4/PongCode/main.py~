@@ -1,10 +1,22 @@
 from kivy.app import App
-from kivy.core.window import Window
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty, ReferenceListProperty,\
     ObjectProperty
 from kivy.vector import Vector
 from kivy.clock import Clock
+
+'''
+ Have some fun
+
+Well, the pong game is pretty much complete. If you understood all of the things that are covered in this tutorial, give yourself a pat on the back and think about how you could improve the game. Here are a few ideas of things you could do:
+
+    Add some nicer graphics / images. (Hint: check out the source property on the graphics instructions like Circle or Rectangle, to set an image as the texture.)
+    Make the game end after a certain score. Maybe once a player has 10 points, you can display a large “PLAYER 1 WINS” label and/or add a main menu to start, pause and reset the game. (Hint: check out the Button and Label classes, and figure out how to use their add_widget and remove_widget functions to add or remove widgets dynamically.
+    Make it a 4 player Pong Game. Most tablets have Multi-Touch support, so wouldn’t it be cool to have a player on each side and have four people play at the same time?
+    Fix the simplistic collision check so hitting the ball with an end of the paddle results in a more realistic bounce.
+
+
+'''
 
 
 class PongPaddle(Widget):
@@ -65,21 +77,11 @@ class PongGame(Widget):
 
 class PongApp(App):
     def build(self):
-        Window.clearcolor = (0, 0, 0, 1)
-        self.game = PongGame()
-        self.game.serve_ball()
-        Clock.schedule_interval(self.game.update, 1.0 / 60.0)
-        return self.game
-    
-    def on_stop(self):
-        self.stop()
-    
-    def pause(self):
-        Clock.unschedule(self.game.update)
+        game = PongGame()
+        game.serve_ball()
+        Clock.schedule_interval(game.update, 1.0 / 60.0)
+        return game
 
-    def resume(self):
-        Clock.schedule_interval(self.game.update, 1.0 / 60.0)
-        
 
 if __name__ == '__main__':
     PongApp().run()
