@@ -1,23 +1,38 @@
 #:kivy 1.0.9
 
-
-
 <MenuWidget>:
+    pos: app.root.center
+    size: (app.root.size[0]/4., app.root.size[1] /4.)
     canvas:
         Rectangle:
-            pos: self.pos
-            size: self.size  
-    Button:
-        text: "RESUME"
-        size: (50, 50)
-        pos: self.pos
-        bold: True
-        on_press:
-            app.pong_app.close_menu()
-        #AnchorLayout:
-            #anchor_x: "center"
-            #anchor_y: "center"
-            #background_color: (0, 0, 0, .80)  
+            size: self.size
+            pos: (app.root.center[0] - self.width/2., app.root.center[1]- self.height/2.)
+            
+    
+    AnchorLayout:
+        pos: (app.root.center[0] - self.width/2., app.root.center[1]- self.height/2.)
+        anchor_x: "center"
+        anchor_y: "center"
+        padding: 5  
+        
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                #NOT SHOWING
+                text: "MENU"
+                bold: True
+                color: (50, 50, 50, 1)
+                halign: "center"
+            Button:
+                text: "RESUME"
+                bold: True
+                on_press:
+                    app.pong_game.close_menu()
+            Button:
+                text: "EXIT"
+                bold: True
+                on_press:
+                    app.pong_game.stop()
 
 
 <PongBall>:
@@ -41,7 +56,7 @@
     
     canvas:
         Color:
-            rgba: 0, 1, 0, 1	#color of middle line
+            rgba: 0, 1, 0, 1    #color of middle line
         Rectangle:
             pos: self.center_x - 5, 0
             size: 10, self.height

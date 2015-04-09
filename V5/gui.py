@@ -4,7 +4,7 @@
 # March 26, 2015
 
 from kivy.app import App
-from kivy.core.window import Window
+#from kivy.core.window import Window
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -17,36 +17,39 @@ from kivy.interactive import InteractiveLauncher
 import pong
 
 class TitleLabel(Label):
-  pass
+    pass
 
 class MainMenuScreen(Screen):
-  pass
+    pass
 
 class AboutScreen(Screen):
-  pass
+    pass
   
 class HelpScreen(Screen):
-  pass
+    pass
 
 class PongScreen(Screen):
-  Window.clearcolor = (255, 255, 255, 1)
+    pass
+    #Window.clearcolor = (255, 255, 255, 1)
   
 class ConfigScreen(Screen):
-  pass  
+    player1 = ObjectProperty(None)
+    player2 = ObjectProperty(None)
 
 class BackButton(Button):
-  pass	
+    pass	
 
 class MyScreenManager(ScreenManager):
-  pass
+    pass
 
 class PongGUIApp(App):
-  Window.size = (325, 455)
-  Window.clearcolor = (255, 255, 255, 1)
-  pong_game = pong.PongApp()
+    #Window.size = (325, 455)
+    #Window.clearcolor = (255, 255, 255, 1)
+    pong_game = pong.PongApp()
 
 
 #launcher = InteractiveLauncher(PongGUIApp())
 #launcher.run()
-if __name__ == "__main__":
-  PongGUIApp().run()
+
+#if __name__ == "__main__":
+   # PongGUIApp().run()

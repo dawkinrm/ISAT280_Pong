@@ -50,6 +50,7 @@ MyScreenManager:
         BackButton:
             size: (52, 52)
             background_color: (255, 255, 255, 1)            
+        
         BackButton:
             text: "MENU"
             background_border:
@@ -60,6 +61,10 @@ MyScreenManager:
 
 <ConfigScreen>
     name: 'config'
+    player1: player1_name
+    player2: player2_name
+    
+    
     AnchorLayout:
         anchor_x: "right"
         anchor_y: "top"
@@ -71,24 +76,33 @@ MyScreenManager:
                 root.manager.current = 'mainmenu'
 
     BoxLayout:
-        FloatLayout:
-            ScreenTitleLabel:
-                text: "Game\nConfiguration"
-                pos_hint: {'center_x': 0.5}
-                pos: (0, 100)            
-            Button:
-                id: play
-                text: "Play Now"
-                background_color: (0, 0, 0, 1)
-                color: (255, 255, 255, 1)
-                bold: True
-                pos_hint: {'center_x': 0.5, 'center_y': .4}
-                size_hint: (0, 0)
-                size: (140, 85)
-                on_press: 
-                    root.manager.transition.direction = 'down'
-                    root.manager.current = 'pong'
-                    app.pong_game.run()
+        orientation: 'vertical'
+        ScreenTitleLabel:
+            text: "Game\nConfiguration"
+
+            
+        Label:
+            text: "Player 1 Name:"
+        TextInput:
+            id: player1_name 
+        Label:
+            text: "Player 2 Name:"
+        TextInput:
+            id: player2_name 
+                        
+        Button:
+            id: play
+            text: "Play Now"
+            background_color: (0, 0, 0, 1)
+            color: (255, 255, 255, 1)
+            bold: True
+            pos_hint: {'center_x': 0.5, 'center_y': .4}
+            size_hint: (0, 0)
+            size: (140, 85)
+            on_press: 
+                root.manager.transition.direction = 'down'
+                root.manager.current = 'pong'
+                app.pong_game.run()
     
         
 <AboutScreen>:
