@@ -18,6 +18,7 @@ MyScreenManager:
     ConfigScreen:
     PongScreen:
 
+
 <BackButton@Button>:
     text: "BACK"
     background_color: (0, 0, 0, 1)
@@ -56,7 +57,6 @@ MyScreenManager:
             background_border:
             on_press:
                 app.pong_game.show_menu()
-
         
 
 <ConfigScreen>
@@ -74,35 +74,41 @@ MyScreenManager:
             on_press: 
                 root.manager.transition.direction = 'up'
                 root.manager.current = 'mainmenu'
-
-    BoxLayout:
-        orientation: vertical
-        ScreenTitleLabel:
-            text: "Game\nConfiguration"
-
+    
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "center"
+        size: self.size
+        
+        BoxLayout:
+            orientation: 'vertical'
+            ScreenTitleLabel:
+                text: "Game\nConfiguration"
             
-        Label:
-            text: "Player 1 Name:"
-        TextInput:
-            id: player1_name 
-        Label:
-            text: "Player 2 Name:"
-        TextInput:
-            id: player2_name 
-                        
-        Button:
-            id: play
-            text: "Play Now"
-            background_color: (0, 0, 0, 1)
-            color: (255, 255, 255, 1)
-            bold: True
-            pos_hint: {'center_x': 0.5, 'center_y': .4}
-            size_hint: (0, 0)
-            size: (140, 85)
-            on_press: 
-                root.manager.transition.direction = 'down'
-                root.manager.current = 'pong'
-                app.pong_game.run()
+            Label:
+                text: "Player 1 Name:"
+            TextInput:
+                id: player1_name 
+            Label:
+                text: "Player 2 Name:"
+            TextInput:
+                id: player2_name 
+                            
+            Button:
+                id: play
+                text: "Play Now"
+                background_color: (0, 0, 0, 1)
+                color: (255, 255, 255, 1)
+                bold: True
+                pos_hint: {'center_x': 0.5, 'center_y': .4}
+                size_hint: (0, 0)
+                size: (140, 85)
+                on_press: 
+                    root.manager.transition.direction = 'down'
+                    root.manager.current = 'pong'
+                    app.root.children[1].player1_name = str(player1_name.text)
+                    app.root.children[1].player2_name = str(player2_name.text)
+                    app.pong_game.run()
     
         
 <AboutScreen>:

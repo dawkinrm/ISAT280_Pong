@@ -6,7 +6,8 @@ from kivy.properties import NumericProperty, ReferenceListProperty,\
 from kivy.vector import Vector
 from kivy.clock import Clock
 from kivy.interactive import InteractiveLauncher
-
+from kivy.uix.popup import Popup
+from kivy.uix.button import Button
 
 class PongPaddle(Widget):
     """ Represents a 'Pong' paddle """
@@ -38,6 +39,8 @@ class PongGame(Widget):
     ball = ObjectProperty(None)
     player1 = ObjectProperty(None)
     player2 = ObjectProperty(None)
+    player1_name = ObjectProperty(None)
+    player2_name = ObjectProperty(None)
 
     def serve_ball(self, vel=(4, 0)):
         #Creates a new pong ball and sets the defualt velocity
@@ -85,27 +88,28 @@ class PongApp(App):
         self.stop()
     
     def pause(self):
-        #Pauses the pong game """
+        #Pauses the pong game
         Clock.unschedule(self.game.update)
 
     def resume(self):
-        #Resumes the pong game """
+        #Resumes the pong game
         Clock.schedule_interval(self.game.update, 1.0 / 60.0)
 
     def show_menu(self):
-        #Shows the menu widget """
+        #Shows the menu widget
         if not self.menu.visible:
             self.pause()
             self.menu.visible = True
             self.root.add_widget(self.menu)
 
     def close_menu(self):
-        #Removes visibility of the menu """
+        #Removes visibility of the menu
         if self.menu.visible:
             self.menu.visible = False
             self.root.remove_widget(self.menu)
             self.resume()
 
+    
 
 class MenuWidget(Widget):
     """ Represents a pause and resume menu """

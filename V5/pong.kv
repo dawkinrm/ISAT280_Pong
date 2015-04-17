@@ -1,5 +1,6 @@
 #:kivy 1.0.9
 
+
 <MenuWidget>:
     pos: app.root.center
     size: (app.root.size[0]/4., app.root.size[1] /4.)
@@ -21,8 +22,8 @@
                 #NOT SHOWING
                 text: "MENU"
                 bold: True
-                color: (50, 50, 50, 1)
-                halign: "center"
+                color: (0, 0, 0, 1)
+                font_size: 20
             Button:
                 text: "RESUME"
                 bold: True
@@ -66,12 +67,21 @@
         center_x: root.width / 4
         top: root.top - 50
         text: str(root.player1.score)
-
+    Label:
+        font_size: 45  
+        center_x: root.width / 4
+        top: root.top 
+        text: str(app.root.children[1].getP1Name())
     Label:
         font_size: 70  
         center_x: root.width * 3 / 4
         top: root.top - 50
         text: str(root.player2.score)
+    Label:
+        font_size: 45  
+        center_x: root.width * 3 / 4
+        top: root.top
+        text: str(app.root.children[1].getP2Name())
     
     PongBall:
         id: pong_ball

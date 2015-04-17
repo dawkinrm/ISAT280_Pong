@@ -14,6 +14,8 @@ from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProper
 from kivy.vector import Vector
 from kivy.clock import Clock
 from kivy.interactive import InteractiveLauncher
+from kivy.graphics.fbo import Fbo
+from kivy.graphics import ClearColor, ClearBuffers, Canvas, Rectangle, Color
 import pong
 
 class TitleLabel(Label):
@@ -33,8 +35,19 @@ class PongScreen(Screen):
     #Window.clearcolor = (255, 255, 255, 1)
   
 class ConfigScreen(Screen):
-    player1 = ObjectProperty(None)
-    player2 = ObjectProperty(None)
+    player1_name = ObjectProperty(None)
+    player2_name = ObjectProperty(None)
+    
+    def setNames(self, p1, p2):
+        self.player1_name = p1
+        self.player2_name = p2
+    
+    def getP1Name(self):
+        return self.player1_name
+       
+    def getP2Name(self):
+        return self.player2_name
+
 
 class BackButton(Button):
     pass	
@@ -43,12 +56,13 @@ class MyScreenManager(ScreenManager):
     pass
 
 class PongGUIApp(App):
+    title = 'PongApp'
     #Window.size = (325, 455)
-    #Window.clearcolor = (255, 255, 255, 1)
+    #Window.clearcolor = (255, 255, 255, 1) 
     pong_game = pong.PongApp()
 
 
-launcher = InteractiveLauncher(PongGUIApp())
+#launcher = InteractiveLauncher(PongGUIApp())
 #launcher.run()
 
 #if __name__ == "__main__":
