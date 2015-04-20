@@ -4,7 +4,7 @@
 # March 26, 2015
 
 from kivy.app import App
-#from kivy.core.window import Window
+from kivy.core.window import Window
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -31,16 +31,15 @@ class HelpScreen(Screen):
     pass
 
 class PongScreen(Screen):
-    pass
-    #Window.clearcolor = (255, 255, 255, 1)
+    Window.clearcolor = (0, 0, 0, 1)
   
 class ConfigScreen(Screen):
     player1_name = ObjectProperty(None)
     player2_name = ObjectProperty(None)
     
     def setNames(self, p1, p2):
-        self.player1_name = p1
-        self.player2_name = p2
+        self.player1_name = p1[:10]
+        self.player2_name = p2[:10]
     
     def getP1Name(self):
         return self.player1_name
@@ -56,13 +55,13 @@ class MyScreenManager(ScreenManager):
 
 class PongGUIApp(App):
     title = 'PongApp'
-    #Window.size = (325, 455)
-    #Window.clearcolor = (255, 255, 255, 1) 
+    Window.size = (325, 455)
+    Window.clearcolor = (0, 1, 1, 1) 
     pong_game = pong.PongApp()
 
 
 #launcher = InteractiveLauncher(PongGUIApp())
 #launcher.run()
 
-#if __name__ == "__main__":
-   # PongGUIApp().run()
+if __name__ == "__main__":
+    PongGUIApp().run()

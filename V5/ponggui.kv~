@@ -12,212 +12,205 @@
 #:import Canvas kivy.graphics
 
 MyScreenManager:
-    MainMenuScreen:
-    AboutScreen:
-    HelpScreen:
-    ConfigScreen:
-    PongScreen:
-
+	MainMenuScreen:
+	AboutScreen:
+	HelpScreen:
+	ConfigScreen:
+	PongScreen:
 
 <BackButton@Button>:
-    text: "BACK"
-    background_color: (0, 0, 0, 1)
-    color: (255, 255, 255, 1)
-    size_hint: (0, 0)
-    size: (50, 50)
-    bold: True
-    font_size: 12
+	text: "BACK"
+	background_color: (0, 0, 0, 1)
+	color: (255, 255, 255, 1)
+	size_hint: (.125, .125)
+	bold: True
+	font_size: self.width / 8
+
+<MainMenuBtn@Button>:
+	background_color: (255, 255, 255, 1)
+	color: (0, 0, 0, 1)
+	pos_hint: {'center_x': 0.5}
+	size_hint: (0.15, 0.1)
+	bold: True
+	font_size: self.width / 8
+	halign: "center"
 
 <CustomLabel@Label>:
-    color: (0,0,0, 1)
-    bold: True
-    font_size: 20
-    halign: "center"
-    text_size: self.width - 50, None
-    
+	color: (0, 0, 0, 1)
+	bold: True
+	font_size: 20
+	halign: "center"
+	text_size: self.width - 50, None
+
 <ScreenTitleLabel@Label>:
-    color: (0,0,0, 1)
-    bold: True
-    font_size: 35
-    halign: "center"  
+	color: (0,0,0, 1)
+	bold: True
+	font_size: 35
+	halign: "center"  
 
 <PongScreen>:
-    name: 'pong'
-    AnchorLayout:
-        anchor_x: "right"
-        anchor_y: "top"
-        padding: 5
-
-        BackButton:
-            size: (52, 52)
-            background_color: (255, 255, 255, 1)            
-        
-        BackButton:
-            text: "MENU"
-            background_border:
-            on_press:
-                app.pong_game.show_menu()
-        
+	name: 'pong'
+	AnchorLayout:
+		anchor_x: "center"
+		anchor_y: "top"
+		padding: 50
+		
+	    BackButton:
+		    size: (52, 52)
+		    background_color: (255, 255, 255, 1)            
+             
+	    BackButton:
+		    text: "MENU"
+		    background_border:
+		    on_press:
+			    app.pong_game.show_menu()
 
 <ConfigScreen>
-    name: 'config'
-    player1: player1_name
-    player2: player2_name
-    
-    
-    AnchorLayout:
-        anchor_x: "right"
-        anchor_y: "top"
-        padding: 5      
+	name: 'config'
+	player1: player1_name
+	player2: player2_name
 
-        BackButton:
-            on_press: 
-                root.manager.transition.direction = 'up'
-                root.manager.current = 'mainmenu'
-    
-    AnchorLayout:
-        anchor_x: "center"
-        anchor_y: "center"
-        size: self.size
-        
-        BoxLayout:
-            orientation: 'vertical'
-            ScreenTitleLabel:
-                text: "Game\nConfiguration"
-            
-            Label:
-                text: "Player 1 Name:"
-            TextInput:
-                id: player1_name 
-            Label:
-                text: "Player 2 Name:"
-            TextInput:
-                id: player2_name 
-                            
-            Button:
-                id: play
-                text: "Play Now"
-                background_color: (0, 0, 0, 1)
-                color: (255, 255, 255, 1)
-                bold: True
-                pos_hint: {'center_x': 0.5, 'center_y': .4}
-                size_hint: (0, 0)
-                size: (140, 85)
-                on_press: 
-                    root.manager.transition.direction = 'down'
-                    root.manager.current = 'pong'
-                    app.root.children[1].player1_name = str(player1_name.text)
-                    app.root.children[1].player2_name = str(player2_name.text)
-                    app.pong_game.run()
-    
-        
+	AnchorLayout:
+		anchor_x: "right"
+		anchor_y: "top"
+		padding: 5
+
+		BackButton:
+			on_press: 
+				root.manager.transition.direction = 'up'
+				root.manager.current = 'mainmenu'
+	
+	AnchorLayout:
+		anchor_x: "center"
+		anchor_y: "center"
+		padding: 5
+		size_hint: 1, .75
+
+		BoxLayout:
+			orientation: 'vertical'
+			size_hint: .65, .85
+			ScreenTitleLabel:
+				text: "Game\nConfiguration"
+				pos_hint: {'center_x': 0.5}
+		    BoxLayout:
+		        padding: 20
+				orientation: 'horizontal'
+				Label:
+					text: "Player 1 Name:"
+					color: (0, 0, 0, 1)
+	            TextInput:
+	                padding: 15
+					id: player1_name
+					size_hint: 1, .5
+					pos_hint: {'center_x': 0.2, 'center_y': 0.2}
+				
+			BoxLayout:
+				orientation: 'horizontal'
+				padding: 20
+                Label:
+					text: "Player 2 Name:"
+		            color: (0, 0, 0, 1)
+				TextInput:
+				    padding: 15
+					id: player2_name
+					size_hint: 1, .5
+					pos_hint: {'center_x': 0.2, 'center_y': 0.2}
+					
+
+			Button:
+				id: play
+				text: "Play Now"
+				background_color: (0, 0, 0, 1)
+				color: (255, 255, 255, 1)
+				bold: True
+				pos_hint: {'center_x': 0.5}
+				size_hint: (0, 0)
+				size: (140, 85)
+				on_press: 
+					root.manager.transition.direction = 'down'
+					root.manager.current = 'pong'
+					app.root.children[1].setNames(player1_name.text, player2_name.text)
+					app.pong_game.run()
+
 <AboutScreen>:
-    name: 'about'
-    AnchorLayout:
-        anchor_x: "right"
-        anchor_y: "top"
-        padding: 5
+	name: 'about'
+	AnchorLayout:
+		anchor_x: "right"
+		anchor_y: "top"
+		padding: 5
         
-        BackButton:
-            on_press: 
-                root.manager.transition.direction = 'right'
-                root.manager.current = 'mainmenu'
+	BackButton:
+		on_press: 
+			root.manager.transition.direction = 'right'
+			root.manager.current = 'mainmenu'
         
-    BoxLayout:
-        FloatLayout:
-            ScreenTitleLabel:
-                text: "About"
-                pos_hint: {'center_x': 0.5}
-                pos: (0, 100)            
-            CustomLabel:
-                text: "PONG is one of the earliest arcade video games; it is a tennis sports game featuring simple two-dimensional graphics.\n\n Objective:\nto defeat an opponent by earning a higher score."
-                pos_hint: {'center_x': 0.5, 'center_y': .42}
+	BoxLayout:
+		FloatLayout:
+		ScreenTitleLabel:
+			text: "About"
+			pos_hint: {'center_x': 0.5}
+			pos: (0, 100)            
+		CustomLabel:
+			text: "PONG is one of the earliest arcade video games; it is a tennis sports game featuring simple two-dimensional graphics.\n\n Objective:\nto defeat an opponent by earning a higher score."
+			pos_hint: {'center_x': 0.5, 'center_y': .42}
 
 <HelpScreen>:
-    name: 'help'
-    AnchorLayout:
-        anchor_x: "right"
-        anchor_y: "top"
-        padding: 5
+	name: 'help'
+	AnchorLayout:
+		anchor_x: "right"
+		anchor_y: "top"
+		padding: 5
         
-        BackButton:
-            on_press: 
-                root.manager.transition.direction = 'left'
-                root.manager.current = 'mainmenu'
-    BoxLayout:
-        FloatLayout:
-            ScreenTitleLabel:
-                text: "Help"
-                pos_hint: {'center_x': 0.5}
-                pos: (0, 100)            
-            CustomLabel:
-                text: "\nCreators:\n\n Justin Conner \n Reyna Dawkins"
-                pos_hint: {'center_x': 0.5, 'center_y': .5}
-                pos: (0, 165)
-    
+	BackButton:
+		on_press: 
+			root.manager.transition.direction = 'left'
+			root.manager.current = 'mainmenu'
+
+	BoxLayout:
+		FloatLayout:
+			ScreenTitleLabel:
+				text: "Help"
+				pos_hint: {'center_x': 0.5}
+				pos: (0, 100)
+  
+		CustomLabel:
+			text: "\nCreators:\n\n Justin Conner \n Reyna Dawkins"
+			pos_hint: {'center_x': 0.5, 'center_y': .5}
+			pos: (0, 165)
+
 <MainMenuScreen>:
-    name: 'mainmenu'
-    BoxLayout:
-        orientation: "vertical"
-        background_color: (255, 255, 255, 1)
+	name: 'mainmenu'
+	BoxLayout:
+		orientation: "vertical"
+		background_color: (255, 255, 255, 1)
 
-        AnchorLayout:
-            anchor_x: "center"
-            anchor_y: "center"
-
-            Button:
-                text: "PONG"
-                background_color: (0, 0, 0, 1)
-                color: (255, 255, 255, 1)
-                size_hint: (0, 0)
-                size: (170, 85)
-                bold: True
-                font_size: 35
-                halign: "center" 
+		Label:
+			text: "PONG"
+			color: (255, 255, 255, 1)
+			size_hint: (0.5, 0.5)
+			pos_hint: {'center_x': 0.5}
+			bold: True
+			font_size: self.width / 5
+			halign: "center" 
         
-        FloatLayout:
-        
-            Button:
-                text: "start"
-                background_color: (255, 255, 255, 1)
-                color: (0, 0, 0, 1)
-                pos_hint: {'center_x': 0.5}
-                pos: (0, 190)
-                size_hint: (0, 0)
-                size: (105, 10)
-                bold: True
-                font_size: 20
-                halign: "center"
-                on_press: 
-                    root.manager.transition.direction = 'down'
-                    root.manager.current = 'config'
+		FloatLayout:        
+			MainMenuBtn:
+				text: "start"
+				pos: (0, self.height * 6)
+				on_press: 
+					root.manager.transition.direction = 'down'
+					root.manager.current = 'config'
           
-            Button:
-                text: "help"
-                background_color: (255, 255, 255, 1)
-                color: (0, 0, 0, 1)
-                pos_hint: {'center_x': 0.5}
-                pos: (0, 165)
-                size_hint: (0, 0)
-                size: (105, 10)
-                bold: True
-                font_size: 20
-                halign: "center"
-                on_press: 
-                    root.manager.transition.direction = 'right'
-                    root.manager.current = 'help'
+			MainMenuBtn:
+				text: "help"
+				pos: (0, self.height * 5)
+				on_press: 
+					root.manager.transition.direction = 'right'
+					root.manager.current = 'help'
           
-            Button:
-                text: "about"
-                background_color: (255, 255, 255, 1)
-                color: (0, 0, 0, 1)
-                pos_hint: {'center_x': 0.5}
-                pos: (0, 140)
-                size_hint: (0, 0)
-                size: (105, 10)
-                bold: True
-                font_size: 20
-                halign: "center"
-                on_press:
-                    root.manager.transition.direction = 'left'
-                    root.manager.current = 'about'
+			MainMenuBtn:
+				text: "about"
+				pos: (0, self.height * 4)
+				on_press:
+					root.manager.transition.direction = 'left'
+					root.manager.current = 'about'

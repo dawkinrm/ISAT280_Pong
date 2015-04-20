@@ -85,7 +85,7 @@ class PongApp(App):
     
     def stop(self):
         #Completely stops the pong game app
-        self._app_window.remove_widget(self)
+        self.stop()
     
     def pause(self):
         #Pauses the pong game
@@ -118,6 +118,6 @@ class MenuWidget(Widget):
 #launcher = InteractiveLauncher(PongApp())
 
 
-#if __name__ == '__main__':
- #   PongApp().run()
+if __name__ == '__main__':
+    PongApp().run()
 

@@ -51,19 +51,19 @@ MyScreenManager:
 <PongScreen>:
 	name: 'pong'
 	AnchorLayout:
-		anchor_x: "right"
+		anchor_x: "center"
 		anchor_y: "top"
-		padding: 5
-
-	BackButton:
-		size: (52, 52)
-		background_color: (255, 255, 255, 1)            
-        
-	BackButton:
-		text: "MENU"
-		background_border:
-		on_press:
-			app.pong_game.show_menu()
+		padding: 50
+		
+	    BackButton:
+		    size: (52, 52)
+		    background_color: (255, 255, 255, 1)            
+             
+	    BackButton:
+		    text: "MENU"
+		    background_border:
+		    on_press:
+			    app.pong_game.show_menu()
 
 <ConfigScreen>
 	name: 'config'
@@ -88,30 +88,34 @@ MyScreenManager:
 
 		BoxLayout:
 			orientation: 'vertical'
-			size_hint: .65, .65
+			size_hint: .65, .85
 			ScreenTitleLabel:
 				text: "Game\nConfiguration"
 				pos_hint: {'center_x': 0.5}
 		    BoxLayout:
+		        padding: 20
 				orientation: 'horizontal'
-				size_hint: .65, .65
 				Label:
 					text: "Player 1 Name:"
 					color: (0, 0, 0, 1)
-	
-				Label:
+	            TextInput:
+	                padding: 10
+					id: player1_name
+					size_hint: 1, .5
+					pos_hint: {'center_x': 0.2, 'center_y': 0.2}
+				
+			BoxLayout:
+				orientation: 'horizontal'
+				padding: 20
+                Label:
 					text: "Player 2 Name:"
 		            color: (0, 0, 0, 1)
-			BoxLayout:
-				size_hint: .65, .65
-				orientation: 'horizontal'
 				TextInput:
-					id: player1_name
-					size_hint: 0.5, 0.25
-
-				TextInput:
+				    padding: 10
 					id: player2_name
-					size_hint: 0.5, 0.25
+					size_hint: 1, .5
+					pos_hint: {'center_x': 0.2, 'center_y': 0.2}
+					
 
 			Button:
 				id: play
@@ -125,6 +129,7 @@ MyScreenManager:
 				on_press: 
 					root.manager.transition.direction = 'down'
 					root.manager.current = 'pong'
+					app.root.children[1].setNames(player1_name.text, player2_name.text)
 					app.pong_game.run()
 
 <AboutScreen>:

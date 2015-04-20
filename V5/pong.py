@@ -1,5 +1,5 @@
 from kivy.app import App
-#from kivy.core.window import Window
+from kivy.core.window import Window
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty, ReferenceListProperty,\
     ObjectProperty
@@ -118,6 +118,6 @@ class MenuWidget(Widget):
 #launcher = InteractiveLauncher(PongApp())
 
 
-#if __name__ == '__main__':
- #   PongApp().run()
+if __name__ == '__main__':
+    PongApp().run()
 
