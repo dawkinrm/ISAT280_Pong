@@ -35,14 +35,18 @@
                 on_press:
                     app.pong_game.stop()
 
-<BackButton@Button>:
-	text: "BACK"
-	background_color: (0, 0, 0, 1)
-	color: (255, 255, 255, 1)
-	size_hint: (.125, .125)
-	bold: True
-	font_size: self.width / 8
-
+<WinnerBanner>:
+    size: 300, 300
+    pos: app.root.center
+    AnchorLayout:
+        pos: (app.root.center[0] - self.width/2., app.root.center[1]- self.height/2.)
+        anchor_x: "center"
+        anchor_y: "center"
+        padding: 5 
+        text: "balls"
+        
+    
+    
 <PongBall>:
     size: 50, 50 
     canvas:
@@ -68,20 +72,6 @@
         Rectangle:
             pos: self.center_x - 5, 0
             size: 10, self.height
-    
-    AnchorLayout:
-		anchor_x: "center"
-		anchor_y: "top"
-		padding: 5
-
-	    BackButton:
-		    background_color: (255, 255, 255, 1)            
-            
-	    BackButton:
-		    text: "MENU"
-		    background_border:
-		    on_press:
-			    app.pong_game.show_menu()
     
     Label:
         font_size: 70  
@@ -111,9 +101,11 @@
     PongPaddle:
         id: player_left
         x: root.x
+        name: str(app.root.children[1].getP1Name())
         center_y: root.center_y
         
     PongPaddle:
         id: player_right
+        name: str(app.root.children[1].getP2Name())
         x: root.width-self.width
         center_y: root.center_y

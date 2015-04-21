@@ -30,22 +30,25 @@ class AboutScreen(Screen):
 class HelpScreen(Screen):
     pass
 
+class LeaderboardScreen(Screen):
+    pass
+
 class PongScreen(Screen):
     Window.clearcolor = (0, 0, 0, 1)
   
 class ConfigScreen(Screen):
-    player1_name = ObjectProperty(None)
-    player2_name = ObjectProperty(None)
+    player1 = ObjectProperty(None)
+    player2 = ObjectProperty(None)
     
     def setNames(self, p1, p2):
-        self.player1_name = p1
-        self.player2_name = p2
+        self.player1.name = p1[:10]
+        self.player2.name = p2[:10]
     
     def getP1Name(self):
-        return self.player1_name
+        return self.player1.name
        
     def getP2Name(self):
-        return self.player2_name
+        return self.player2.name
 
 class BackButton(Button):
     pass	
@@ -55,7 +58,7 @@ class MyScreenManager(ScreenManager):
 
 class PongGUIApp(App):
     title = 'PongApp'
-    Window.size = (325, 455)
+    #Window.size = (325, 455)
     Window.clearcolor = (0, 1, 1, 1) 
     pong_game = pong.PongApp()
 

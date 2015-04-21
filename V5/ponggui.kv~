@@ -17,6 +17,7 @@ MyScreenManager:
 	HelpScreen:
 	ConfigScreen:
 	PongScreen:
+	LeaderboardScreen:
 
 <BackButton@Button>:
 	text: "BACK"
@@ -67,8 +68,8 @@ MyScreenManager:
 
 <ConfigScreen>
 	name: 'config'
-	player1: player1_name
-	player2: player2_name
+	player1: player1_left
+	player2: player2_right
 
 	AnchorLayout:
 		anchor_x: "right"
@@ -99,8 +100,8 @@ MyScreenManager:
 					text: "Player 1 Name:"
 					color: (0, 0, 0, 1)
 	            TextInput:
-	                padding: 15
-					id: player1_name
+	                padding: 10
+					id: player1_left
 					size_hint: 1, .5
 					pos_hint: {'center_x': 0.2, 'center_y': 0.2}
 				
@@ -111,8 +112,8 @@ MyScreenManager:
 					text: "Player 2 Name:"
 		            color: (0, 0, 0, 1)
 				TextInput:
-				    padding: 15
-					id: player2_name
+				    padding: 10
+					id: player2_right
 					size_hint: 1, .5
 					pos_hint: {'center_x': 0.2, 'center_y': 0.2}
 					
@@ -129,7 +130,7 @@ MyScreenManager:
 				on_press: 
 					root.manager.transition.direction = 'down'
 					root.manager.current = 'pong'
-					app.root.children[1].setNames(player1_name.text, player2_name.text)
+					app.root.children[1].setNames(player1_left.text, player2_right.text)
 					app.pong_game.run()
 
 <AboutScreen>:
@@ -139,20 +140,19 @@ MyScreenManager:
 		anchor_y: "top"
 		padding: 5
         
-	BackButton:
-		on_press: 
-			root.manager.transition.direction = 'right'
-			root.manager.current = 'mainmenu'
-        
-	BoxLayout:
-		FloatLayout:
-		ScreenTitleLabel:
-			text: "About"
-			pos_hint: {'center_x': 0.5}
-			pos: (0, 100)            
-		CustomLabel:
-			text: "PONG is one of the earliest arcade video games; it is a tennis sports game featuring simple two-dimensional graphics.\n\n Objective:\nto defeat an opponent by earning a higher score."
-			pos_hint: {'center_x': 0.5, 'center_y': .42}
+	    BackButton:
+		    on_press: 
+			    root.manager.transition.direction = 'right'
+			    root.manager.current = 'mainmenu'
+
+	ScreenTitleLabel:
+		text: "About"
+		pos_hint: {'center_x': 0.5, 'center_y': 0.75}               
+	
+	CustomLabel:
+		text: "\nCreators:\n\n Justin Conner \n Reyna Dawkins"
+	    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+	    
 
 <HelpScreen>:
 	name: 'help'
@@ -161,22 +161,34 @@ MyScreenManager:
 		anchor_y: "top"
 		padding: 5
         
-	BackButton:
-		on_press: 
-			root.manager.transition.direction = 'left'
-			root.manager.current = 'mainmenu'
+	    BackButton:
+		    on_press: 
+			    root.manager.transition.direction = 'left'
+			    root.manager.current = 'mainmenu'
 
-	BoxLayout:
-		FloatLayout:
-			ScreenTitleLabel:
-				text: "Help"
-				pos_hint: {'center_x': 0.5}
-				pos: (0, 100)
-  
-		CustomLabel:
-			text: "\nCreators:\n\n Justin Conner \n Reyna Dawkins"
-			pos_hint: {'center_x': 0.5, 'center_y': .5}
-			pos: (0, 165)
+    ScreenTitleLabel:
+	    text: "Help"
+	    pos_hint: {'center_x': 0.5, 'center_y': 0.75}
+    
+    FloatLayout:
+        pos: self.pos
+        size_hint: .6, .6
+        CustomLabel:
+	        text: "PONG is one of the earliest arcade video games; it is a tennis sports game featuring simple two-dimensional graphics.\n\n Objective:\nto defeat an opponent by earning a higher score."
+		    pos: self.pos
+
+<LeaderboardScreen>:
+    name: 'leaderboard'
+    AnchorLayout:
+		anchor_x: "right"
+		anchor_y: "top"
+		padding: 5
+        
+        BackButton:
+	        on_press: 
+		        root.manager.transition.direction = 'up'
+		        root.manager.current = 'mainmenu'
+
 
 <MainMenuScreen>:
 	name: 'mainmenu'
@@ -196,10 +208,17 @@ MyScreenManager:
 		FloatLayout:        
 			MainMenuBtn:
 				text: "start"
-				pos: (0, self.height * 6)
+				pos: (0, self.height * 7)
 				on_press: 
 					root.manager.transition.direction = 'down'
 					root.manager.current = 'config'
+			
+			MainMenuBtn:
+				text: "leaderboards"
+				pos: (0, self.height * 6)
+				on_press: 
+					root.manager.transition.direction = 'down'
+					root.manager.current = 'leaderboard'
           
 			MainMenuBtn:
 				text: "help"

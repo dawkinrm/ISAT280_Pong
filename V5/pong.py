@@ -8,6 +8,7 @@ from kivy.clock import Clock
 from kivy.interactive import InteractiveLauncher
 from kivy.uix.popup import Popup
 from kivy.uix.button import Button
+from kivy.uix.label import Label
 
 class PongPaddle(Widget):
     """ Represents a 'Pong' paddle """
@@ -39,9 +40,8 @@ class PongGame(Widget):
     ball = ObjectProperty(None)
     player1 = ObjectProperty(None)
     player2 = ObjectProperty(None)
-    player1_name = ObjectProperty(None)
-    player2_name = ObjectProperty(None)
-
+    score_limit = NumericProperty(3)
+        
     def serve_ball(self, vel=(4, 0)):
         #Creates a new pong ball and sets the defualt velocity
         self.ball.center = self.center
@@ -74,6 +74,10 @@ class PongGame(Widget):
         if touch.x > self.width - self.width / 3:
             self.player2.center_y = touch.y
 
+class MenuWidget(Widget):
+    """ Represents a pause and resume menu """
+    visible = False
+
 class PongApp(App):
     def build(self):
         #Window.clearcolor = (.50, .50, .50, 1)
@@ -81,7 +85,28 @@ class PongApp(App):
         self.game = PongGame()
         self.game.serve_ball()
         Clock.schedule_interval(self.game.update, 1.0 / 60.0)
+        Clock.schedule_interval(self.check_game_over, 1.0 / 60.0)
         return self.game
+            
+    def check_game_over(self, dt):
+        #checks whether the game is over or not
+        if self.game.player1.score >= self.game.score_limit:
+            self.pause()
+            self.show_winner(self.game.player1.name)
+                  
+        if self.game.player2.score >= self.game.score_limit:
+            self.pause()
+            self.show_winner(self.game.player2.name)
+    
+    def show_winner(self, winner_name):
+        #adds the winners name to the winner banner and displays the banner
+        l = Label(text=winner_name + " WINS!")
+        l.color = 0,0,0,1
+        l.bold = True
+        l.size = self.root.size
+        l.font_size = 80
+        self.root.add_widget(l)
+        
     
     def stop(self):
         #Completely stops the pong game app
@@ -108,14 +133,8 @@ class PongApp(App):
             self.menu.visible = False
             self.root.remove_widget(self.menu)
             self.resume()
-
     
-
-class MenuWidget(Widget):
-    """ Represents a pause and resume menu """
-    visible = False
-    
-#launcher = InteractiveLauncher(PongApp())
+#i = InteractiveLauncher(PongApp())
 
 
 if __name__ == '__main__':
