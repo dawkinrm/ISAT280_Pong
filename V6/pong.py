@@ -40,7 +40,7 @@ class PongGame(Widget):
     ball = ObjectProperty(None)
     player1 = ObjectProperty(None)
     player2 = ObjectProperty(None)
-    score_limit = NumericProperty(3)
+    score_limit = NumericProperty(10)
         
     def serve_ball(self, vel=(4, 0)):
         #Creates a new pong ball and sets the defualt velocity
@@ -137,6 +137,6 @@ class PongApp(App):
 #i = InteractiveLauncher(PongApp())
 
 
-if __name__ == '__main__':
-    PongApp().run()
+#if __name__ == '__main__':
+#   PongApp().run()
 

@@ -35,7 +35,18 @@
                 on_press:
                     app.pong_game.stop()
 
-
+<WinnerBanner>:
+    size: 300, 300
+    pos: app.root.center
+    AnchorLayout:
+        pos: (app.root.center[0] - self.width/2., app.root.center[1]- self.height/2.)
+        anchor_x: "center"
+        anchor_y: "center"
+        padding: 5 
+        text: "balls"
+        
+    
+    
 <PongBall>:
     size: 50, 50 
     canvas:
@@ -71,7 +82,7 @@
         font_size: 45  
         center_x: root.width / 4
         top: root.top 
-        text: str(app.root.children[1].player1_name)
+        text: str(app.root.children[1].getP1Name())
     Label:
         font_size: 70  
         center_x: root.width * 3 / 4
@@ -81,7 +92,7 @@
         font_size: 45  
         center_x: root.width * 3 / 4
         top: root.top
-        text: str(app.root.children[1].player2_name)
+        text: str(app.root.children[1].getP2Name())
     
     PongBall:
         id: pong_ball
@@ -90,9 +101,11 @@
     PongPaddle:
         id: player_left
         x: root.x
+        name: str(app.root.children[1].getP1Name())
         center_y: root.center_y
         
     PongPaddle:
         id: player_right
+        name: str(app.root.children[1].getP2Name())
         x: root.width-self.width
         center_y: root.center_y

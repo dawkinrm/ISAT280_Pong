@@ -15,9 +15,9 @@ MyScreenManager:
 	MainMenuScreen:
 	AboutScreen:
 	HelpScreen:
+    LeaderboardScreen:
 	ConfigScreen:
 	PongScreen:
-	LeaderboardScreen:
 
 <BackButton@Button>:
 	text: "BACK"
@@ -170,15 +170,13 @@ MyScreenManager:
 	    text: "Help"
 	    pos_hint: {'center_x': 0.5, 'center_y': 0.75}
     
-    FloatLayout:
-        pos: self.pos
-        size_hint: .6, .6
-        CustomLabel:
-	        text: "PONG is one of the earliest arcade video games; it is a tennis sports game featuring simple two-dimensional graphics.\n\n Objective:\nto defeat an opponent by earning a higher score."
-		    pos: self.pos
+    CustomLabel:
+	    text: "PONG is one of the earliest arcade video games; it is a tennis sports game featuring simple two-dimensional graphics.\n\n Objective:\nto defeat an opponent by earning a higher score."
+		pos_hint: {'center_x': 0.5, 'center_y': .5}
 
 <LeaderboardScreen>:
     name: 'leaderboard'
+
     AnchorLayout:
 		anchor_x: "right"
 		anchor_y: "top"
@@ -189,6 +187,10 @@ MyScreenManager:
 		        root.manager.transition.direction = 'up'
 		        root.manager.current = 'mainmenu'
 
+    CustomLabel:
+        id: test
+        text: "Test..."
+        pos_hint: {'center_x': 0.5, 'center_y': .5}
 
 <MainMenuScreen>:
 	name: 'mainmenu'
@@ -219,6 +221,7 @@ MyScreenManager:
 				on_press: 
 					root.manager.transition.direction = 'down'
 					root.manager.current = 'leaderboard'
+                    app.root.children[0].returnMatches()
           
 			MainMenuBtn:
 				text: "help"

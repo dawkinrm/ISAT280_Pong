@@ -17,6 +17,10 @@ from kivy.interactive import InteractiveLauncher
 from kivy.graphics.fbo import Fbo
 from kivy.graphics import ClearColor, ClearBuffers, Canvas, Rectangle, Color
 import pong
+import dbconnect
+
+player1 = ObjectProperty(None)
+player2 = ObjectProperty(None)
 
 class TitleLabel(Label):
     pass
@@ -31,15 +35,14 @@ class HelpScreen(Screen):
     pass
 
 class LeaderboardScreen(Screen):
-    pass
+    def returnMatches(self):
+        db = dbconnect.connect()
+        self.ids["test"].text = str(db[6]) + " " + str(db[2]) + " " + str(db[4]) + "\n" + str(db[1]) + " " + str(db[3])
 
 class PongScreen(Screen):
     Window.clearcolor = (0, 0, 0, 1)
   
 class ConfigScreen(Screen):
-    player1 = ObjectProperty(None)
-    player2 = ObjectProperty(None)
-    
     def setNames(self, p1, p2):
         self.player1.name = p1[:10]
         self.player2.name = p2[:10]
