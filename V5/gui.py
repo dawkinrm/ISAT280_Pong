@@ -18,6 +18,7 @@ from kivy.graphics.fbo import Fbo
 from kivy.graphics import ClearColor, ClearBuffers, Canvas, Rectangle, Color
 import pong
 
+
 class TitleLabel(Label):
     pass
 
@@ -41,8 +42,14 @@ class ConfigScreen(Screen):
     player2 = ObjectProperty(None)
     
     def setNames(self, p1, p2):
-        self.player1.name = p1[:10]
-        self.player2.name = p2[:10]
+        if p1 == "":
+            self.player1.name = "Player 1"
+        else:
+            self.player1.name = p1[:10]
+        if p2 == "":  
+            self.player2.name = "Player 2"
+        else:
+            self.player2.name = p2[:10]
     
     def getP1Name(self):
         return self.player1.name
@@ -61,7 +68,9 @@ class PongGUIApp(App):
     #Window.size = (325, 455)
     Window.clearcolor = (0, 1, 1, 1) 
     pong_game = pong.PongApp()
-
+    
+    def vib(self):
+        vibrator.vibrate(1000)
 
 #launcher = InteractiveLauncher(PongGUIApp())
 #launcher.run()

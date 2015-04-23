@@ -34,17 +34,6 @@
                 bold: True
                 on_press:
                     app.pong_game.stop()
-
-<WinnerBanner>:
-    size: 300, 300
-    pos: app.root.center
-    AnchorLayout:
-        pos: (app.root.center[0] - self.width/2., app.root.center[1]- self.height/2.)
-        anchor_x: "center"
-        anchor_y: "center"
-        padding: 5 
-        text: "balls"
-        
     
     
 <PongBall>:
