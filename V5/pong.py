@@ -1,3 +1,7 @@
+# Edited By: Justin Conners, Reyna Dawkins
+# ISAT 280
+# Spring 2015
+
 from kivy.app import App
 from kivy.core.window import Window
 from kivy.uix.widget import Widget
@@ -21,8 +25,8 @@ class PongPaddle(Widget):
         if self.collide_widget(ball):
             vx, vy = ball.velocity
             offset = (ball.center_y - self.center_y) / (self.height / 2)
-            bounced = Vector(-1 * vx, vy)
-            vel = bounced * 1.1
+            bounced = Vector(-1 * vx, vy*1.2)
+            vel = bounced * 1.15
             ball.velocity = vel.x, vel.y + offset
 
 
@@ -44,7 +48,7 @@ class PongGame(Widget):
     player2 = ObjectProperty(None)
     score_limit = NumericProperty(None)
         
-    def serve_ball(self, vel=(4, 0)):
+    def serve_ball(self, vel=(10, 0)):
         #Creates a new pong ball and sets the defualt velocity
         self.ball.center = self.center
         self.ball.velocity = vel
@@ -111,6 +115,7 @@ class PongApp(App):
         if self.game.player2.score >= self.game.score_limit:
             self.pause()
             self.show_winner(self.game.player2.name)
+            
 	
     def show_winner(self, winner_name):
         #adds the winners name to the winner banner and displays the banner
@@ -120,11 +125,6 @@ class PongApp(App):
         l.size = self.root.size
         l.font_size = 80
         self.root.add_widget(l)
-        
-    
-    def stop(self):
-        #Completely stops the pong game app
-        self.root.stop()
     
     def pause(self):
         #Pauses the pong game

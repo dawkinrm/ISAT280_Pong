@@ -15,6 +15,7 @@
         anchor_x: "center"
         anchor_y: "center"
         padding: 5  
+        size: root.size
         
         BoxLayout:
             orientation: 'vertical'
@@ -23,7 +24,7 @@
                 text: "MENU"
                 bold: True
                 color: (0, 0, 0, 1)
-                font_size: 20
+                font_size: root.width / 15
             Button:
                 text: "RESUME"
                 bold: True
@@ -33,29 +34,19 @@
                 text: "EXIT"
                 bold: True
                 on_press:
+                    #app.root.current = 'mainmenu'
                     app.pong_game.stop()
-
-<WinnerBanner>:
-    size: 300, 300
-    pos: app.root.center
-    AnchorLayout:
-        pos: (app.root.center[0] - self.width/2., app.root.center[1]- self.height/2.)
-        anchor_x: "center"
-        anchor_y: "center"
-        padding: 5 
-        text: "balls"
-        
     
     
 <PongBall>:
-    size: 50, 50 
+    size: app.root.height/12, app.root.height/12
     canvas:
         Ellipse:
             pos: self.pos
             size: self.size          
 
 <PongPaddle>:
-    size: 25, 200
+    size: (app.root.width/30), (app.root.height/4)
     canvas:
         Rectangle:
             pos:self.pos
@@ -65,31 +56,46 @@
     ball: pong_ball
     player1: player_left
     player2: player_right
+	score_limit: app.root.children[1].getLimit()
     
     canvas:
         Color:
             rgba: 0, 1, 0, 1    #color of middle line
         Rectangle:
             pos: self.center_x - 5, 0
-            size: 10, self.height
-    
+            size: 10, self.height      
+    AnchorLayout:
+        size: app.root.size
+        anchor_x: "center"
+        anchor_y: "top"
+        padding: 5
+        
+        Button:
+	        text: "MENU"
+	        background_color: (0, 0, 0, 1)
+	        color: (255, 255, 255, 1)
+	        bold: True
+	        size_hint: .125, .125
+	        font_size: self.width / 8
+	        on_press:
+		        app.pong_game.show_menu()
     Label:
-        font_size: 70  
+        font_size: root.width / 20
         center_x: root.width / 4
-        top: root.top - 50
+        top: root.top - (root.width / 20)
         text: str(root.player1.score)
     Label:
-        font_size: 45  
+        font_size: root.width / 20
         center_x: root.width / 4
         top: root.top 
         text: str(app.root.children[1].getP1Name())
     Label:
-        font_size: 70  
+        font_size: root.width /20 
         center_x: root.width * 3 / 4
-        top: root.top - 50
+        top: root.top - (root.width / 20)
         text: str(root.player2.score)
     Label:
-        font_size: 45  
+        font_size: root.width /20
         center_x: root.width * 3 / 4
         top: root.top
         text: str(app.root.children[1].getP2Name())

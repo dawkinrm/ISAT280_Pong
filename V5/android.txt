@@ -1,0 +1,3 @@
+title=pong2
+author=Justin Conner, Reyna Dawkins
+orientation=landscape
