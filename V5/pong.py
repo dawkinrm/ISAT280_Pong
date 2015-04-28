@@ -9,8 +9,8 @@ from kivy.interactive import InteractiveLauncher
 from kivy.uix.popup import Popup
 from kivy.uix.button import Button
 from kivy.uix.label import Label
-from plyer import vibrator
-from jnius import autoclass
+#from plyer import vibrator
+#from jnius import autoclass
 
 class PongPaddle(Widget):
     """ Represents a 'Pong' paddle """
@@ -42,7 +42,7 @@ class PongGame(Widget):
     ball = ObjectProperty(None)
     player1 = ObjectProperty(None)
     player2 = ObjectProperty(None)
-    score_limit = NumericProperty(3)
+    score_limit = NumericProperty(None)
         
     def serve_ball(self, vel=(4, 0)):
         #Creates a new pong ball and sets the defualt velocity
@@ -65,11 +65,11 @@ class PongGame(Widget):
         if self.ball.x < self.x:
             self.player2.score += 1
             self.serve_ball(vel=(4, 0))
-            self.do_vibrate(1000)
+            #self.do_vibrate(1000)
         if self.ball.x > self.width:
             self.player1.score += 1
             self.serve_ball(vel=(-4, 0))
-            self.do_vibrate(1000)
+            #self.do_vibrate(1000)
 
     def on_touch_move(self, touch):
         #Creates movement for on_touch of player pong paddles
@@ -111,7 +111,7 @@ class PongApp(App):
         if self.game.player2.score >= self.game.score_limit:
             self.pause()
             self.show_winner(self.game.player2.name)
-    
+	
     def show_winner(self, winner_name):
         #adds the winners name to the winner banner and displays the banner
         l = Label(text=winner_name + " WINS!")
@@ -124,7 +124,7 @@ class PongApp(App):
     
     def stop(self):
         #Completely stops the pong game app
-        self.stop()
+        self.root.stop()
     
     def pause(self):
         #Pauses the pong game

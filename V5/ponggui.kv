@@ -65,8 +65,11 @@ MyScreenManager:
 		    background_border:
 		    on_press:
 			    app.pong_game.show_menu()
-
-<ConfigScreen>
+				
+<SpinnerOption>:
+	on_release: app.root.children[0].setLimit(self.text)
+				
+<ConfigScreen>:
 	name: 'config'
 	player1: player1_left
 	player2: player2_right
@@ -93,7 +96,20 @@ MyScreenManager:
 			ScreenTitleLabel:
 				text: "Game\nConfiguration"
 				pos_hint: {'center_x': 0.5}
-		    BoxLayout:
+			BoxLayout:
+		        padding: 20
+				orientation: 'horizontal'
+				Label:
+					text: "Score Limit:"
+					color: (0, 0, 0, 1)
+				Spinner:
+					text: 'Select a Score Limit!'
+					values: ('1', '3', '5', '10')
+					size_hint: 1, 1
+					pos_hint: {'center_x': .5, 'center_y': .5}
+					
+			
+			BoxLayout:
 		        padding: 20
 				orientation: 'horizontal'
 				Label:
@@ -102,7 +118,7 @@ MyScreenManager:
 	            TextInput:
 	                padding: 10
 					id: player1_left
-					size_hint: 1, .5
+					size_hint: 1, 1
 					pos_hint: {'center_x': 0.2, 'center_y': 0.2}
 				
 			BoxLayout:
@@ -114,7 +130,7 @@ MyScreenManager:
 				TextInput:
 				    padding: 10
 					id: player2_right
-					size_hint: 1, .5
+					size_hint: 1, 1
 					pos_hint: {'center_x': 0.2, 'center_y': 0.2}
 					
 
@@ -132,6 +148,8 @@ MyScreenManager:
 					root.manager.current = 'pong'
 					app.root.children[1].setNames(player1_left.text, player2_right.text)
 					app.pong_game.run()
+					app.pong_game.game.score_limit = app.root.children[0].getLimit()
+					
 
 <AboutScreen>:
 	name: 'about'

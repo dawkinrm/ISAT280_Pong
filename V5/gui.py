@@ -16,6 +16,7 @@ from kivy.clock import Clock
 from kivy.interactive import InteractiveLauncher
 from kivy.graphics.fbo import Fbo
 from kivy.graphics import ClearColor, ClearBuffers, Canvas, Rectangle, Color
+from kivy.uix.dropdown import DropDown
 import pong
 
 
@@ -40,7 +41,9 @@ class PongScreen(Screen):
 class ConfigScreen(Screen):
     player1 = ObjectProperty(None)
     player2 = ObjectProperty(None)
-    
+    scoreLimit = NumericProperty(None)
+    defaultLimit = 10
+	
     def setNames(self, p1, p2):
         if p1 == "":
             self.player1.name = "Player 1"
@@ -56,9 +59,21 @@ class ConfigScreen(Screen):
        
     def getP2Name(self):
         return self.player2.name
+		
+    def setLimit(self, num):
+        if num != None:
+            self.scoreLimit = int(num)
+        else:
+            self.scoreLimit = self.defaultLimit
+		
+    def getLimit(self):
+        return self.scoreLimit
+		
+	
 
 class BackButton(Button):
     pass	
+		
 
 class MyScreenManager(ScreenManager):
     pass
