@@ -92,7 +92,7 @@ class MyScreenManager(ScreenManager):
 class PongGUIApp(App):
     title = 'PongApp'
     #Window.size = (325, 455)
-    Window.clearcolor = (0, 1, 1, 1) 
+    Window.clearcolor = (100, 100, 100, 1) 
     pong_game = pong.PongApp()
     
     def vib(self):
