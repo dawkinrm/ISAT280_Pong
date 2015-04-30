@@ -1,0 +1,37 @@
+Developers:
+	Justin Conner
+	Reyna Hawkins 
+
+	
+'Pong' App Tests:
+
+	1) Make sure the app works
+
+	2) Make sure each menu button functions as intended
+		- Play button should take you to the Config screen (where it allows you to set player names)
+		- About button should take you to the About screen (this screen should show you the developers)
+		- Help button should take you to the Help screen (this screen should tell you about the game)
+		- Leaderboard button should take you to a screen with only a back button
+		
+	3) Make sure the Back button on each screen takes you to the Home screen (the initial screen)
+
+	4) Make sure the Play Now button (on the Config screen) takes you to the Pong app
+
+	5) Each players name should be shown above their respective scores (up to 10 characters)
+
+	6) Make sure the Menu button functions as intended
+		- The game should pause and a menu should pop up
+		- Exit button on menu will not function correctly (still working on it)
+		- Resume button should resume the game where it left off
+		
+	7) Each Pong Paddle should be movable by touch / mouse
+
+	8) When the ball hits anything, it should bounce in the same manner a normal ball would bounce
+
+	9) When the ball passes one of the paddles, the opposing player's score should increment by 1
+	
+	10) When a player hits 3 points scored, the game should pause, and the winner's name should be displayed
+
+	11) I'm not sure how you should exit the game (lol)
+	
+

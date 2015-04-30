@@ -1,7 +1,6 @@
-# Mini-Project_2 Deliverable
 # Justin Conners, Reyna Dawkins
 # ISAT 280
-# March 26, 2015
+# Spring 2015
 
 from kivy.app import App
 from kivy.core.window import Window
@@ -16,7 +15,9 @@ from kivy.clock import Clock
 from kivy.interactive import InteractiveLauncher
 from kivy.graphics.fbo import Fbo
 from kivy.graphics import ClearColor, ClearBuffers, Canvas, Rectangle, Color
+from kivy.uix.dropdown import DropDown
 import pong
+
 
 class TitleLabel(Label):
     pass
@@ -35,24 +36,54 @@ class LeaderboardScreen(Screen):
 
 class PongScreen(Screen):
     Window.clearcolor = (0, 0, 0, 1)
+    
+    def getLimit(self):
+    # Im not sure why this screen needs this. But it does.
+        return 1
   
 class ConfigScreen(Screen):
     player1 = ObjectProperty(None)
     player2 = ObjectProperty(None)
+    scoreLimit = NumericProperty(None)
+    defaultLimit = NumericProperty(10)
     
     def setNames(self, p1, p2):
-        self.player1.name = p1[:10]
-        self.player2.name = p2[:10]
+    # Sets Player names. If no name is set,
+    # Use default player names
+        if p1 == "":
+            self.player1.name = "Player 1"
+        else:
+            self.player1.name = p1[:10]
+        if p2 == "":  
+            self.player2.name = "Player 2"
+        else:
+            self.player2.name = p2[:10]
     
     def getP1Name(self):
+    # Returns player1 name
         return self.player1.name
        
     def getP2Name(self):
+    # Returns player2 name
         return self.player2.name
+		
+    def setLimit(self, num):
+    # Sets the games score limit
+        if num != None:
+            self.scoreLimit = int(num)
+        else:
+            self.scoreLimit = self.defaultLimit
+		
+    def getLimit(self):
+    # Returns the game's score limit
+        if self.scoreLimit != None:
+            return self.scoreLimit
+        else:
+            return self.defaultLimit
 
 class BackButton(Button):
     pass	
-
+		
 class MyScreenManager(ScreenManager):
     pass
 
@@ -61,7 +92,9 @@ class PongGUIApp(App):
     #Window.size = (325, 455)
     Window.clearcolor = (0, 1, 1, 1) 
     pong_game = pong.PongApp()
-
+    
+    def vib(self):
+        vibrator.vibrate(1000)
 
 #launcher = InteractiveLauncher(PongGUIApp())
 #launcher.run()
