@@ -5,10 +5,10 @@ from mysql.connector import Error
 
 config = {
 	"user": "root",
-	"password": "root",
+#	"password": "root",
 #	"password": "checkout",
 #	"host": "192.168.1.11",
-	"unix_socket": "/Applications/MAMP/tmp/mysql/mysql.sock",
+	"unix_socket": "/tmp/mysql.sock",
 	"database": "pong",
 	"raise_on_warnings": True,
 }
