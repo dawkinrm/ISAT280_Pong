@@ -17,13 +17,6 @@ from plyer import vibrator
 import datetime
 import dbconnect
 
-pOneName = ""
-pTwoName = ""
-pOneScore = None
-pTwoScore = None
-winner = None
-date = str(datetime.datetime.now()).split()[0]
-
 
 class PongPaddle(Widget):
     """ Represents a 'Pong' paddle """
@@ -98,6 +91,13 @@ class MenuWidget(Widget):
 
 
 class PongApp(App):
+    pOneName = ""
+    pTwoName = ""
+    pOneScore = None
+    pTwoScore = None
+    winner = None
+    date = str(datetime.datetime.now()).split()[0]
+    
     def build(self):
         #Window.clearcolor = (.50, .50, .50, 1)
         self.menu = MenuWidget()
@@ -108,36 +108,42 @@ class PongApp(App):
         return self.game
     
     def set_globals(self, winr):
-        pOneName = self.game.player1.name
-        pTwoName = self.game.player2.name
-        pOneScore = self.game.player1.score
-        pTwoScore = self.game.player2.score
-        winner = winr
-            
+        try:
+            self.pOneName = str(self.root.children[1].name)
+            self.pTwoName = str(self.root.children[0].name)
+            self.pOneScore = int(self.root.player1.score)
+            self.pTwoScore = int(self.root.player2.score)
+            self.winner = winr
+        except:
+            pass
+
     def check_game_over(self, dt):
         #checks whether the game is over or not
         if self.game.player1.score >= self.game.score_limit:
             self.pause()
             self.set_globals(0)
-            print pOneName, pTwoName, pOneScore, pTwoScore, winner, date
-            dbconnect.push(pOneName,
-                           pTwoName,
-                           pOneScore,
-                           pTwoScore,
-                           winner,
-                           date)
+            print self.pOneName, self.pTwoName, self.pOneScore, self.pTwoScore, self.winner, self.date
+            dbconnect.push(self.pOneName,
+                           self.pTwoName,
+                           self.pOneScore,
+                           self.pTwoScore,
+                           self.winner,
+                           self.date)
             self.show_winner(self.game.player1.name)
+            Clock.unschedule(self.check_game_over)
     
         if self.game.player2.score >= self.game.score_limit:
             self.pause()
             self.set_globals(1)
-            dbconnect.push(pOneName,
-                           pTwoName,
-                           pOneScore,
-                           pTwoScore,
-                           winner,
-                           date)
+            dbconnect.push(self.pOneName,
+                           self.pTwoName,
+                           self.pOneScore,
+                           self.pTwoScore,
+                           self.winner,
+                           self.date)
             self.show_winner(self.game.player2.name)
+            Clock.unschedule(self.check_game_over)
+            
     
 	
     def show_winner(self, winner_name):
