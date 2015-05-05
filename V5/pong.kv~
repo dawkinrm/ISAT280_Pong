@@ -59,7 +59,7 @@
     
     canvas:
         Color:
-            rgba: 0, 1, 0, 1    #color of middle line
+            rgba: 1, 1, 1, 1    #color of middle line
         Rectangle:
             pos: self.center_x - 5, 0
             size: 10, self.height      

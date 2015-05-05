@@ -47,11 +47,10 @@ MyScreenManager:
 	color: (0,0,0, 1)
 	bold: True
 	font_size: 35
-	halign: "center"  
+	halign: "center"      
 
 <PongScreen>:
 	name: 'pong'
-
 				
 <SpinnerOption>:
 	on_release: app.root.children[0].setLimit(self.text)
@@ -169,7 +168,7 @@ MyScreenManager:
 		font_size: self.width / 20              
 	
 	CustomLabel:
-		text: "\nCreators:\n\n Justin Conner \n Reyna Dawkins"
+		text: "\nVersion:\n\n1.0.1\n\nCreators:\n\n Justin Conner \n Reyna Dawkins"
 	    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 	    font_size: self.width / 35
 	    
@@ -192,9 +191,10 @@ MyScreenManager:
 	    font_size: self.width / 20
     
     CustomLabel:
-	    text: "PONG is one of the earliest arcade video games; it is a tennis sports game featuring simple two-dimensional graphics.\n\n Objective:\nto defeat an opponent by earning a higher score."
+	    text: "\nPONG is one of the earliest arcade video games; it is a tennis sports game featuring simple two-dimensional graphics\n\n Objective:\nto defeat an opponent by earning a higher score"
 		pos_hint: {'center_x': 0.5, 'center_y': .5}
-		font_size: self.width / 35
+		font_size: root.width / 35
+		size_hint: .5,1 
 
 <LeaderboardScreen>:
     name: 'leaderboard'
@@ -208,13 +208,28 @@ MyScreenManager:
 		        root.manager.transition.direction = 'up'
 		        root.manager.current = 'mainmenu'
 
+<PongBall>:
+    size: root.height, root.height
+    canvas:
+        Color:
+            rgba: 0, 0, 0, 1
+        Ellipse:
+            pos: self.pos
+            size: self.size      
 
 <MainMenuScreen>:
 	name: 'mainmenu'
+    ball: pong_ball
+    
+    PongBall:
+        id: pong_ball
+        size_hint: .1, .1
+        center: self.parent.center
+    
 	BoxLayout:
 		orientation: "vertical"
 		background_color: (255, 255, 255, 1)
-
+        
 		Label:
 			text: "PONG"
 			color: (255, 255, 255, 1)
@@ -252,3 +267,10 @@ MyScreenManager:
 				on_press:
 					root.manager.transition.direction = 'left'
 					root.manager.current = 'about'
+					
+		    MainMenuBtn:
+				text: "ball"
+				pos: (0, self.height * 3)
+                on_press:
+                    root.serve_ball()
+                    root.start()

@@ -14,7 +14,7 @@ from kivy.uix.popup import Popup
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from plyer import vibrator
-#from jnius import autoclass
+
 
 class PongPaddle(Widget):
     """ Represents a 'Pong' paddle """
@@ -69,27 +69,23 @@ class PongGame(Widget):
         if self.ball.x < self.x:
             self.player2.score += 1
             self.serve_ball(vel=(12, 0))
-            vibrator.vibrate()
+            #vibrator.vibrate()
         if self.ball.x > self.width:
             self.player1.score += 1
             self.serve_ball(vel=(-12, 0))
-            vibrator.vibrate()
+            #vibrator.vibrate()
 
     def on_touch_move(self, touch):
         #Creates movement for on_touch of player pong paddles
         if touch.x < self.width / 3:
             self.player1.center_y = touch.y
         if touch.x > self.width - self.width / 3:
-            self.player2.center_y = touch.y
-            
-    def do_vibrate(self, pattern):
-        vibrator.vibrate(pattern)
+            self.player2.center_y = touch.y  
 
 
 class MenuWidget(Widget):
     """ Represents a pause and resume menu """
     visible = False
-
 
 
 class PongApp(App):
@@ -143,8 +139,6 @@ class PongApp(App):
             self.menu.visible = False
             self.root.remove_widget(self.menu)
             self.resume()
-    
-#i = InteractiveLauncher(PongApp())
 
 
 if __name__ == '__main__':

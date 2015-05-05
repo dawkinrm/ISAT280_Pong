@@ -16,23 +16,56 @@ from kivy.interactive import InteractiveLauncher
 from kivy.graphics.fbo import Fbo
 from kivy.graphics import ClearColor, ClearBuffers, Canvas, Rectangle, Color
 from kivy.uix.dropdown import DropDown
+from plyer import accelerometer, vibrator
+import random
 import pong
 
 
 class TitleLabel(Label):
     pass
 
+
 class MainMenuScreen(Screen):
-    pass
+    ball = ObjectProperty(None)
+    
+    def start(self):
+        Clock.schedule_interval(self.update, 1.0 / 60.0)
+        
+    def try_with_accel(self):
+        vals = accelerometer.acceleration[:3]
+        print "THE VALUES ARE HERE: ", vals
+        if ((vals[0] and vals[1]) != None) and (vals[0] + vals[1]) > 10:
+            Clock.schedule_interval(self.update, 1.0 / 60.0)
+            self.serve_ball()
+    
+    def serve_ball(self, vel=(10, random.randint(-10,10))):
+        #Creates a new pong ball and sets the defualt velocity
+        #self.ball.center = self.center
+        self.ball.velocity = vel
+
+    def update(self, dt):
+        #Creates the visual update of the pong gam
+        self.ball.move()
+
+        #bounce ball off wall
+        if (self.ball.y < self.y) or (self.ball.top > self.top):
+            self.ball.velocity_y *= -1
+        if (self.ball.x < self.x) or ((self.ball.x + self.ball.size[0]) > self.width):
+            self.ball.velocity_x *= -1
+        
+    Clock.schedule_interval(try_with_accel, 1.0 / 60.0)
 
 class AboutScreen(Screen):
     pass
   
+  
 class HelpScreen(Screen):
     pass
 
+
 class LeaderboardScreen(Screen):
     pass
+
 
 class PongScreen(Screen):
     Window.clearcolor = (0, 0, 0, 1)
@@ -40,6 +73,7 @@ class PongScreen(Screen):
     def getLimit(self):
     # Im not sure why this screen needs this. But it does.
         return 1
+  
   
 class ConfigScreen(Screen):
     player1 = ObjectProperty(None)
@@ -81,23 +115,30 @@ class ConfigScreen(Screen):
         else:
             return self.defaultLimit
 
+
 class BackButton(Button):
     pass	
+		
 		
 class MyScreenManager(ScreenManager):
     pass
 
+
 class PongGUIApp(App):
     title = 'PongApp'
     #Window.size = (325, 455)
-    Window.clearcolor = (.55, .55, .84, 1) 
-    pong_game = pong.PongApp()
+    Window.clearcolor = (.55, .55, .84, 1)
     
-    def vib(self):
-        vibrator.vibrate(1000)
+    try:
+        accelerometer.enable()
+    except Exception, e:
+        print str(e)
+        
+    pong_game = pong.PongApp()
 
-#launcher = InteractiveLauncher(PongGUIApp())
-#launcher.run()
+
+#i = InteractiveLauncher(PongGUIApp())
+#i.run()
 
 if __name__ == "__main__":
     PongGUIApp().run()
